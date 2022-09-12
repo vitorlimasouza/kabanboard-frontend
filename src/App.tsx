@@ -1,11 +1,12 @@
 import React from 'react';
+import { BoardPanel } from './pages';
+import { Routes } from './routes';
 import { Input, GlobalStyle, Button } from './styles'
 
 function App() {
   return (
     <>
-      <Input placeholder='Senha'/>
-      <Button>Enviar</Button>
+      <BoardPanel/>
       <GlobalStyle/>
     </>
       

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import { Singin, Singup } from '../pages';
+import { Singin, Singup, BoardPanel } from '../pages';
 
 export const Routes = () =>{
     return (
@@ -8,7 +8,7 @@ export const Routes = () =>{
                 {/* <Route path="/"><Home/></Route> */}
                 <Route path="/Singin"><Singin/></Route>
                 <Route path="/Singup"><Singup/></Route>
-                {/* <Route path="/Board"><Board/></Route> */}
+                {<Route path="/Board"><BoardPanel/></Route>}
             </Switch>
         </BrowserRouter>
     )
