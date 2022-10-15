@@ -97,5 +97,5 @@ export function loadCard(idColunm:number){
     return [
     ]
   }
-  return null;
+  return [];
 }

@@ -10,4 +10,4 @@ export const Board = () => {
             {list.map(list => <Column key={list.title} data={list}/>)}
         </Container>
     )
-} 
+}
