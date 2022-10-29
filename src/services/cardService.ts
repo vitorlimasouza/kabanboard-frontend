@@ -5,6 +5,7 @@ import { UpdateCardRequest } from "../types/requests/board/UpdateCardRequest"
 import { CardDetailsResponse, cardDetailsResponseFromData } from "../types/response/board/CardDetailsResponse"
 import { SaveCardResponse, saveCardResponseFromData } from "../types/response/board/SaveCardResponse"
 import { SimpleCardResponse, simpleCardResponseFromData } from "../types/response/board/SimpleCardResponse"
+import Pageable, { pageableFromData } from "../types/response/PageableResponse"
 import { privateApiCall } from "./baseApiCalls"
 
 export async function createCard(
@@ -121,10 +122,10 @@ export async function findCardsByColumn(
     boardId: string,
     columnId: string,
     page: number
-): Promise<SimpleCardResponse> {
+): Promise<Pageable<SimpleCardResponse>> {
     const response = await privateApiCall({
         method: 'GET',
-        url: `/api/v1/column/${columnId}/card/list?page=${page}&size=10`,
+        url: `/api/v1/column/${columnId}/card/list?page=${page}&size=2`,
         headers: {
             'Board-Id': boardId
         }
@@ -132,7 +133,7 @@ export async function findCardsByColumn(
     
     const data = await response.json()
     if (response.ok) {
-        return simpleCardResponseFromData(data)
+        return pageableFromData(data, (contentItem) => simpleCardResponseFromData(contentItem))
     } else {
         return Promise.reject({successful: false})
     }
