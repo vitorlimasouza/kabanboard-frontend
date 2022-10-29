@@ -8,6 +8,8 @@ import { updateToken } from './services/userService';
 function App() {
 
     useEffect(() => {
+        updateToken()
+
         const interval = setInterval(() => {
             updateToken()
         }, 600000)
