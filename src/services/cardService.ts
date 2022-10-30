@@ -125,7 +125,7 @@ export async function findCardsByColumn(
 ): Promise<Pageable<SimpleCardResponse>> {
     const response = await privateApiCall({
         method: 'GET',
-        url: `/api/v1/column/${columnId}/card/list?page=${page}&size=2`,
+        url: `/api/v1/column/${columnId}/card/list?page=${page}&size=10`,
         headers: {
             'Board-Id': boardId
         }
