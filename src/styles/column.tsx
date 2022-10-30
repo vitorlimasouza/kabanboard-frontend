@@ -1,23 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    padding: 0 10px;
-    height: 100%
+    padding: 0 5px;
+    height: 100%;
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 300px;
+    flex-basis: 250px;
     & + div {
-        border-left: 1px solid rgba(0, 0, 0, 0.5);
+        margin-left: 0.5em;
     }
+    background: #C0D0DF;
 
     header {
         height: 42px;
+        align-items: center;
+        padding: 5px
     }
 
     h2 {
-        font-weight: 500;
+        font-weight: 700;
         font-size: 20px;
-        padding: 0 10px
+        color: #434E59;
     }
 
     ul {
