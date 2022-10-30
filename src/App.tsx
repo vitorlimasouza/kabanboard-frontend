@@ -6,7 +6,7 @@ import { Input, GlobalStyle, Button } from './styles'
 function App() {
   return (
     <>
-      <BoardPanel/>
+      <Routes></Routes>
       <GlobalStyle/>
     </>
       

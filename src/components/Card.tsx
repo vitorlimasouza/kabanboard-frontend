@@ -1,6 +1,7 @@
 import { Container } from "../styles/card";
 import { useDrag, useDrop, XYCoord } from "react-dnd";
-import { useRef, useContext } from "react";
+import { useRef, FC } from "react";
+import { ICard } from "../Interface/ICard";
 
 interface DragItem {
     index: number
@@ -8,7 +9,14 @@ interface DragItem {
     type: string
 }
 
-export const Card = ({data, index, move}:any) => {
+interface Params {
+    content: string,
+    id: number,
+    user: any,
+    index: number
+}
+
+export const Card: FC<ICard> = ({user, index, tittle}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [{ isDragging }, dragRef] = useDrag(() => ({
@@ -51,7 +59,7 @@ export const Card = ({data, index, move}:any) => {
                   if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                     return
                   }
-                  move(dragIndex, hoverIndex)
+                  //move(dragIndex, hoverIndex)
                   item.index = hoverIndex
             }
       })
@@ -60,11 +68,9 @@ export const Card = ({data, index, move}:any) => {
     return(
         <Container ref={ref} isDragging={isDragging}>
             <header>
-               {data.content}
+               <p>{tittle}</p>
             </header>
-            <footer>
-                
-            </footer>
+            <img src = "https://avatars.githubusercontent.com/u/60241528?s=400&u=3c2329862da72db63bd5a4ccb95e47d89c29d077&v=4" alt="a" />
         </Container>
     );
 
