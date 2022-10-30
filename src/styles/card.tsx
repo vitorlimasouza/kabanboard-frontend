@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
+
+export interface Props {
+    isDragging?: boolean
+}
 
 export const Container = styled.div`
     position: relative;
@@ -15,7 +19,18 @@ export const Container = styled.div`
         height: 24px;
         border-radius: 5px;
         margin-top: 5px;
-        padding: 15px;
-
+        
     }
+
+    ${(props: Props ) => props.isDragging && css`
+        border: 2px dashed rgba(0, 0, 0, 0.2);
+        padding-top: 31px;
+        border-raidus: 0;
+        background: tranparent;
+        box-shadow: none;
+        cursor: grabbing;
+        p, img, header, footer{
+            opacity: 0;
+        }
+    `}
 `;
