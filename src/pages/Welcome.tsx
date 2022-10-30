@@ -1,16 +1,15 @@
-import { Link } from "react-router-dom";
-import { Container } from "../styles/column";
-import { Painel } from "../styles";
+import { Container, Painel } from "../styles";
+import {StyledLink, Title} from "../styles/welcome";
 
 export const Welcome = () => {
     return (
         <Container>
             <Painel>
-                <h1>Seja bem vindo!</h1>
-                <br/>
-                <Link to="/singin">Entrar</Link>
-                <br/>
-                <Link to="/singup">Cadastrar-se</Link>
+                <Title>Seja bem vindo!</Title>
+
+                <StyledLink to="/singin">Entrar</StyledLink>
+
+                <StyledLink to="/singup">Cadastrar-se</StyledLink>
             </Painel>
         </Container>
     );

@@ -35,7 +35,8 @@ export const Container = styled.div`
 export const Painel = styled.div`
     border: 1px solid black;
     width: 300px;
-    height: 350px;
+    height: fit-content;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;

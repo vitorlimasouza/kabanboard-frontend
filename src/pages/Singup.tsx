@@ -1,4 +1,4 @@
-import { Button, Input, Painel, Container } from "../styles";
+import { Button, Input, Container, Painel } from "../styles";
 import { useState } from "react";
 import { createUser, login } from "../services/userService";
 
@@ -30,20 +30,30 @@ export const Singup = () => {
     return(
         <Container>
             <Painel>
-                <label>Nome:</label>
-                <Input onChange={e => setFirstName(e.target.value)}/>
+                <div>
+                    <p>Nome:</p>
+                    <Input onChange={e => setFirstName(e.target.value)}/>
+                </div>
 
-                <label>Sobrenome:</label>
-                <Input onChange={e => setLastName(e.target.value)}/>
+                <div>
+                    <p>Sobrenome:</p>
+                    <Input onChange={e => setLastName(e.target.value)}/>
+                </div>
 
-                <label>Email:</label>
-                <Input onChange={e => setEmail(e.target.value)}/>
+                <div>
+                    <p>Email:</p>
+                    <Input onChange={e => setEmail(e.target.value)}/>
+                </div>
 
-                <label>Senha:</label>
-                <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                <div>
+                    <p>Senha:</p>
+                    <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                </div>
 
-                <label>Confirmar senha:</label>
-                <Input type="password" onChange={e => setPasswordConfirm(e.target.value)}/>
+                <div>
+                    <p>Confirmar senha:</p>
+                    <Input type="password" onChange={e => setPasswordConfirm(e.target.value)}/>
+                </div>
 
                 <Button onClick={onSendClick}>Enviar</Button>
             </Painel>

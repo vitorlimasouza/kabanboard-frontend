@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { forgetPassword } from "../services/userService";
-import { Container } from "../styles/column";
+import { Button, Container, Input, Painel } from "../styles";
+import { Description } from "../styles/forgetPassword";
 
 export const ForgetPasswordPage = () => {
     const [email, setEmail] = useState("");
@@ -11,15 +12,14 @@ export const ForgetPasswordPage = () => {
 
     return (
         <Container>
-            <p>Enviaremos um email com um link para a redefinição de senha.</p>
-            <br/>
-            <label>
-                <p>Email:</p>
-                <input type="text" onChange={e => setEmail(e.target.value)}/>
-            </label>
-            <div>
-                <button onClick={handleSendEmailClick}>Enviar email</button>
-            </div>
+            <Painel>
+                <Description>Enviaremos um email com um link para a redefinição de senha.</Description>
+                <div>
+                    <p>Email:</p>
+                    <Input onChange={e => setEmail(e.target.value)}/>
+                </div>
+                <Button onClick={handleSendEmailClick}>Enviar email</Button>
+            </Painel>
         </Container>
     );
 }

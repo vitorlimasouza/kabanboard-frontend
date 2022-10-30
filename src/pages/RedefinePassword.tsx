@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { overwritePassword } from "../services/userService";
-import { Container } from "../styles/column";
-import { Button, Input, Painel } from "../styles";
+import { Button, Container, Input, Painel } from "../styles";
 
 export const RedefinePassword = () => {
     
@@ -29,18 +28,20 @@ export const RedefinePassword = () => {
         } else {
             console.log("Token is required")
         }
-
-
     };
 
     return (
         <Container>
             <Painel>
-                <label>Senha:</label>
-                <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                <div>
+                    <p>Senha:</p>
+                    <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                </div>
 
-                <label>Confirmar senha:</label>
-                <input type="password" onChange={e => setPasswordConfirm(e.target.value)}/>
+                <div>
+                    <p>Confirmar senha:</p>
+                    <Input type="password" onChange={e => setPasswordConfirm(e.target.value)}/>
+                </div>
 
                 <Button onClick={onRedefinePasswordClick}>Redefinir senha</Button>
             </Painel>

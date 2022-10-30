@@ -1,7 +1,7 @@
 import { Button, Container, Input, Painel } from "../styles";
-import {useState} from "react";
-import {login} from "../services/userService";
-import {Link} from "react-router-dom";
+import { useState } from "react";
+import { login } from "../services/userService";
+import { StyledLink } from "../styles/singin";
 
 export const Singin = () => {
     const [email, setEmail] = useState("");
@@ -15,14 +15,18 @@ export const Singin = () => {
     return(
         <Container>
             <Painel>
-                <label>Email</label>
-                <Input onChange={e => setEmail(e.target.value)}/>
+                <div>
+                    <p>Email:</p>
+                    <Input onChange={e => setEmail(e.target.value)}/>
+                </div>
 
-                <label>Senha</label>
-                <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                <div>
+                    <p>Senha:</p>
+                    <Input type="password" onChange={e => setPassword(e.target.value)}/>
+                </div>
                 <Button onClick={onSendClick}>Enviar</Button>
 
-                <Link to="/forget-password">Esqueci minha senha</Link>
+                <StyledLink to="/forget-password">Esqueci minha senha</StyledLink>
             </Painel>
         </Container>
     )
