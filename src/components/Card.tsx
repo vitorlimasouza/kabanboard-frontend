@@ -1,7 +1,6 @@
 import { Container } from "../styles/card";
 import { useDrag, useDrop, XYCoord } from "react-dnd";
 import { useRef, FC } from "react";
-import { ICard } from "../Interface/ICard";
 
 interface DragItem {
     index: number
@@ -16,7 +15,7 @@ interface Params {
     index: number
 }
 
-export const Card: FC<ICard> = ({user, index, tittle}) => {
+export const Card = ({user, index, tittle}:{user: string, index: number, tittle: string}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [{ isDragging }, dragRef] = useDrag(() => ({
