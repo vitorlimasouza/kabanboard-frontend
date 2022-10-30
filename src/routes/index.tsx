@@ -6,9 +6,9 @@ export const Routes = () =>{
         <BrowserRouter>
             <Switch>
                 {/* <Route path="/"><Home/></Route> */}
-                <Route path="/Singin"><Singin/></Route>
-                <Route path="/Singup"><Singup/></Route>
-                {<Route path="/Board"><BoardPanel/></Route>}
+                <Route path="/Singin" element={<Singin/>}></Route>
+                <Route path="/Singup" element={<Singup/>}></Route>
+                {<Route path="/Board" element={<BoardPanel/>}></Route>}
             </Switch>
         </BrowserRouter>
     )
