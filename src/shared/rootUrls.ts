@@ -1,0 +1,1 @@
+export const KANBAN_BACKEND_API_ROOT_URL = 'http://localhost:8080';

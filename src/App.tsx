@@ -1,16 +1,25 @@
 import React from 'react';
-import { BoardPanel } from './pages';
 import { Routes } from './routes';
-import { Input, GlobalStyle, Button } from './styles'
+import { useEffect } from 'react';
+import { GlobalStyle } from './styles'
+import { updateToken } from './services/userService';
 
 function App() {
-  return (
-    <>
-      <Routes></Routes>
-      <GlobalStyle/>
-    </>
-      
-  );
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            updateToken()
+        }, 600000)
+
+        return () => clearInterval(interval)
+    }, [])
+
+    return (
+        <>
+          <Routes></Routes>
+          <GlobalStyle/>
+        </>
+    );
 }
 
 export default App;
