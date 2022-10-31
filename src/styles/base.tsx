@@ -46,16 +46,9 @@ export const Painel = styled.div`
 
 export const Header = styled.header`
     width: 100%;
-    height: 7vh;
+    height: 5vh;
     border: 1px solid black;
     display: flex;
     background-color: #324659;
     margin-bottom: 10px;
-`
-
-export const Section = styled.section`
-    background-color: #A7C4DF;
-    height: 200px;
-    border: 1px solid black;
-
 `
