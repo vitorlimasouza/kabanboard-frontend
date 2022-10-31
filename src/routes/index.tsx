@@ -1,14 +1,19 @@
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import { Singin, Singup, BoardPanel } from '../pages';
+import { BoardPanel, Singin, Singup } from '../pages';
+import { ForgetPasswordPage } from "../pages/ForgetPassword";
+import { RedefinePassword } from "../pages/RedefinePassword";
+import { Welcome } from "../pages/Welcome";
 
 export const Routes = () =>{
     return (
         <BrowserRouter>
             <Switch>
-                {/* <Route path="/"><Home/></Route> */}
-                <Route path="/Singin" element={<Singin/>}></Route>
-                <Route path="/Singup" element={<Singup/>}></Route>
-                {<Route path="/Board" element={<BoardPanel/>}></Route>}
+                <Route path="/" element={<Welcome/>}></Route>
+                <Route path="/singin" element={<Singin/>}/>
+                <Route path="/singup" element={<Singup/>}/>
+                <Route path="/board" element={<BoardPanel/>}/>
+                <Route path="/forget-password" element={<ForgetPasswordPage/>}/>
+                <Route path="/redefine-password/:token" element={<RedefinePassword/>}/>
             </Switch>
         </BrowserRouter>
     )
