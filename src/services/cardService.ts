@@ -146,7 +146,7 @@ export async function findCardDetails(
 ): Promise<CardDetailsResponse> {
     const response = await privateApiCall({
         method: 'GET',
-        url: `/api/v1/column/${columnId}/card//${cardId}/details`,
+        url: `/api/v1/column/${columnId}/card/${cardId}/details`,
         headers: {
             'Board-Id': boardId
         }

@@ -12,7 +12,7 @@ export const Routes = () =>{
                 <Route path="/singin" element={<Singin/>}/>
                 <Route path="/singup" element={<Singup/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
-                <Route path="/board" element={<BoardPanel/>}/>
+                <Route path="/board/:boardId" element={<BoardPanel/>}/>
                 <Route path="/forget-password" element={<ForgetPasswordPage/>}/>
                 <Route path="/redefine-password/:token" element={<RedefinePassword/>}/>
             </Switch>

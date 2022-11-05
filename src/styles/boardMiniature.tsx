@@ -11,4 +11,5 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     box-shadow: 0 1px 4px 0 rgba(192, 230, 230, 0.8);
+    cursor: pointer;
 `

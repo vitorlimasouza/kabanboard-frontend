@@ -5,3 +5,12 @@
 .display-none {
     display: none;
 }
+
+.datepicker-field {
+    width: 100%;
+    margin: 0 0 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    color: black;
+}

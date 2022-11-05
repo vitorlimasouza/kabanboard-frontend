@@ -12,7 +12,7 @@ export const Container = styled.div`
     padding: 15px;
     box-shadow: 0 1px 4px 0 rgba(192, 230, 230, 0.8);
     border-top: 20px solid rgba(230, 236, 245, 0.4);
-    cursor: grab;
+    cursor: pointer;
 
     img {
         width: 24px;
