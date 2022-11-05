@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { overwritePassword } from "../services/userService";
 import { Button, Container, Input, Painel } from "../styles";
 
 export const RedefinePassword = () => {
-    
+    let navigate = useNavigate()
     let { token } = useParams();
 
     const [password, setPassword] = useState("");
@@ -17,10 +17,7 @@ export const RedefinePassword = () => {
             if (password === passwordConfirm) {
                 overwritePassword({token, password})
                     .then(response =>
-                        console.log("Sucess on overwrite password")
-                    )
-                    .catch(response =>
-                        console.log("Fail on overwrite password")
+                        navigate("/dashboard")
                     )
             } else {
                 console.log("Password not match")

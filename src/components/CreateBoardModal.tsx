@@ -6,22 +6,20 @@ import "../styles/global.css"
 
 type Params = {
     show: boolean,
-    handleClose: () => void
+    handleClose: () => void,
+    onCreateBoardTrigger: () => void
 }
-
-export const CreateBoardModal = ({show, handleClose}:Params) => {
+export const CreateBoardModal = ({show, handleClose, onCreateBoardTrigger}:Params) => {
     const [boardName, setBoardName] = useState("");
 
     const showHideClassName = show ? "display-block" : "display-none";
 
     const onCreateClick = async () => {
         await createBoard({name: boardName})
-            .then(response =>
-                console.log("Board creation successful")
-            )
-            .catch(response =>
-                console.log("Board creation failed")
-            )
+            .then(response => {
+                handleClose();
+                onCreateBoardTrigger();
+            })
     }
 
     return(

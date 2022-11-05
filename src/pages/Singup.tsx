@@ -1,8 +1,11 @@
 import { Button, Input, Container, Painel } from "../styles";
 import { useState } from "react";
 import { createUser, login } from "../services/userService";
+import { useNavigate } from "react-router-dom";
 
 export const Singup = () => {
+    let navigate = useNavigate()
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -16,11 +19,8 @@ export const Singup = () => {
             createUser({firstName, lastName, email, password})
                 .then(response => {
                     login({email, password})
-                    console.log("Sucess on create user")
+                    navigate("/dashboard")
                 })
-                .catch(response =>
-                    console.log("Fail on create user")
-                )
         } else {
             console.log("Password not match")
         }
