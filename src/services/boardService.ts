@@ -3,6 +3,8 @@ import { UpdateBoardRequest } from "../types/requests/board/UpdateBoardRequest"
 import { SavedBoardResponse, savedBoardResponseFromData } from "../types/response/board/SavedBoardResponse"
 import { SimpleUserResponse, simpleUserResponseFromData } from "../types/response/user/SimpleUserResponse"
 import { privateApiCall } from "./baseApiCalls"
+import { SimpleBoardResponse, simpleBoardResponseFromData } from "../types/response/board/SimpleBoardResponse";
+import Pageable, { pageableFromData } from "../types/response/PageableResponse";
 
 export async function createBoard(
     createBoardRequest: CreateBoardRequest
@@ -88,6 +90,23 @@ export async function findBoard(
     const data = await response.json()
     if (response.ok) {
         return savedBoardResponseFromData(data)
+    } else {
+        return Promise.reject({successful: false})
+    }
+}
+
+export async function findBoards(
+    page: number
+): Promise<Pageable<SimpleBoardResponse>> {
+    const response = await privateApiCall({
+        method: 'GET',
+        url: `/api/v1/board?page=${page}&size=20`
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+        return pageableFromData(data, (contentItem) => simpleBoardResponseFromData(contentItem))
     } else {
         return Promise.reject({successful: false})
     }
