@@ -4,7 +4,7 @@ import { ForgetPasswordRequest } from "../types/requests/user/ForgetPasswordRequ
 import { OverwritePasswordRequest } from "../types/requests/user/OverwritePasswordRequest";
 import { UserLoginRequest } from "../types/requests/user/UserLoginRequest";
 import { UserResponse, userResponseFromData } from "../types/response/user/UserResponse";
-import { getLoginEmail, getLoginPassword, isAuthenticated, setBearerToken, setLoginEmail, setLoginPassword } from "./auth";
+import { isAuthenticated, setBearerToken } from "./auth";
 import { privateApiCall, publicApiCall } from "./baseApiCalls";
 
 export async function login(userLoginRequest: UserLoginRequest): Promise<any> {
@@ -20,8 +20,6 @@ export async function login(userLoginRequest: UserLoginRequest): Promise<any> {
     const data = await response.json()
     if (response.ok) {
         setBearerToken(data.access_token)
-        setLoginEmail(userLoginRequest.email)
-        setLoginPassword(userLoginRequest.password)
 
         return Promise.resolve({successful: true})
     } else {
@@ -31,16 +29,9 @@ export async function login(userLoginRequest: UserLoginRequest): Promise<any> {
 
 export async function updateToken(): Promise<any> {
     if (isAuthenticated()){
-        const loginEmail = getLoginEmail()
-        const loginPassword = getLoginPassword()
-
-        const response = await publicApiCall({
-            method: 'POST',
-            url: '/api/v1/user/login',
-            body: {
-                username: loginEmail,
-                password: loginPassword
-            }
+        const response = await privateApiCall({
+            method: 'PUT',
+            url: '/api/v1/user/refresh-token'
         })
         
         const data = await response.json()
