@@ -5,6 +5,7 @@ import { SimpleCardResponse } from "../types/response/board/SimpleCardResponse";
 import { findCardsByColumn, moveCardTo } from "../services/cardService";
 import { UpsertCardModal } from "./UpsertCardModal";
 import { useDrop } from "react-dnd";
+import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
 
 type UseDropCollectedProps = {
     canDrop: boolean,
@@ -15,9 +16,10 @@ type Params = {
     boardId: string,
     columnId: string,
     columnName: string,
-    coldAddCards: boolean
+    boardMembers: SimpleUserResponse[],
+    couldAddCards: boolean
 }
-export const Column = ({boardId, columnId, columnName, coldAddCards}:Params) => {
+export const Column = ({boardId, columnId, columnName, boardMembers, couldAddCards}:Params) => {
     const [cardsPage, setCardsPage] = useState(0);
     const [cards, setCards] = useState([] as SimpleCardResponse[]);
     const [showLoadMoreButton, setShowLoadMoreButton] = useState(false);
@@ -98,7 +100,7 @@ export const Column = ({boardId, columnId, columnName, coldAddCards}:Params) => 
             <Container ref={dropRef} isHovered={isHovered} canDrop={canDrop}>
                 <ColumnHeader>
                     <h2>{columnName}</h2>
-                    {coldAddCards ? <Button onClick={handleOnClickNewCard}>+</Button> : null}
+                    {couldAddCards ? <Button onClick={handleOnClickNewCard}>+</Button> : null}
                 </ColumnHeader>
                 <ul>
                     {cards.map((card, index) =>
@@ -106,10 +108,8 @@ export const Column = ({boardId, columnId, columnName, coldAddCards}:Params) => 
                             key={card.id}
                             cardId={card.id}
                             columnId={columnId}
-                            boardId={boardId}
                             title={card.title}
-                            userName="Vitor"
-                            profileIconUrl="https://avatars.githubusercontent.com/u/60241528?s=400&u=3c2329862da72db63bd5a4ccb95e47d89c29d077&v=4"
+                            users={card.users}
                             columnRefreshCards={refreshColumnCards}
                             openUpsertCardModal={openUpsertCardModal}
                             index={index}
@@ -124,8 +124,9 @@ export const Column = ({boardId, columnId, columnName, coldAddCards}:Params) => 
                     cardId={updateCardId}
                     boardId={boardId}
                     columnId={columnId}
+                    boardMembers={boardMembers}
                     handleClose={handleCloseUpsertCardModal}
-                    onAddCardTrigger={refreshColumnCards}
+                    refreshColumn={refreshColumnCards}
                 />
                 : null
             }

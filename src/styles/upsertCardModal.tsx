@@ -85,3 +85,43 @@ export const CardDescriptionInput = styled.textarea`
         color: rpg(0,0,0,0.2);
     }
 `
+
+export const UserDetails = styled.div`
+    max-height: 230px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+`
+
+export const UsersPainel = styled.div`
+    width: 100%;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+`
+
+export const UserLabel = styled.div`
+    width: 100%;
+    margin: 1px 0;
+    display: flex;
+    justify-content: flex-start;
+`
+
+export const UserName = styled.p`
+    max-width: 200px;
+    max-height: 30px;
+    overflow: clip;
+    margin-left: 5px;
+    font-size: 25px;
+`
+
+export const AddUserButton = styled.button`
+    padding: 5px 20px;
+    width: 100%;
+    margin-top: 10px;
+    background-color: blue;
+    cursor: pointer;
+    color:#fff;
+    border-radius: 10px;
+    font-size: 20px;
+`

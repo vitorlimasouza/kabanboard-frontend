@@ -1,4 +1,4 @@
-import { Header } from "../styles"
+import { Header } from "../components/Header";
 import { Button, GridDysplay } from "../styles/dashboard";
 import { useEffect, useState } from "react";
 import { CreateBoardModal } from "../components/CreateBoardModal";

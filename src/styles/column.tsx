@@ -9,7 +9,7 @@ export const Container = styled.div`
     padding: 0 5px;
     margin: 5px 10px;
     height: 100%;
-    flex-grow: 0;
+    flex-grow: 1;
     flex-shrink: 0;
     flex-basis: 250px;
     & + div {
@@ -30,7 +30,7 @@ export const Container = styled.div`
     }
 
     ul {
-        margin-top: 30px;
+        margin-top: 10px;
     }
     
     ${(props: Props) => props.canDrop === true && css`

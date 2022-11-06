@@ -7,8 +7,9 @@ import "../styles/global.css"
 
 type Params = {
     show: boolean
+    refreshMembers: () => void
 }
-export const UserConfigurationModal = ({show}: Params) => {
+export const UserConfigurationModal = ({show, refreshMembers}: Params) => {
     let navigate = useNavigate()
 
     const [userId, setUserId] = useState("")
@@ -43,6 +44,7 @@ export const UserConfigurationModal = ({show}: Params) => {
             );
         }
         setHasUpdate(false);
+        refreshMembers();
     };
 
     const handleProfilePhotoUrlFieldLosesFocus = () => {

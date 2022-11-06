@@ -7,11 +7,17 @@ import {
     CardDescriptionInput,
     MainArea,
     SideArea,
-    PainelContent
-} from "../styles/createCardModal";
+    PainelContent,
+    UsersPainel,
+    UserDetails,
+    AddUserButton
+} from "../styles/upsertCardModal";
+import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
 import { useEffect, useState } from "react";
-import { createCard, findCardDetails, updateCard } from "../services/cardService";
+import { createCard, findCardDetails, updateCard, updateCardParticipants } from "../services/cardService";
 import { dateTimeToBrazilianDateTimeString } from "../shared/utils/dateUtils";
+import { AddUserLabel } from "./AddUserLabel";
+import { UserLabelWithRemove } from "./UserLabelWithRemove";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/global.css";
@@ -20,24 +26,32 @@ type Params = {
     boardId: string,
     columnId: string,
     cardId?: string | null,
+    boardMembers: SimpleUserResponse[],
     handleClose: () => void,
-    onAddCardTrigger: () => void
+    refreshColumn: () => void
 }
 export const UpsertCardModal = ({
     boardId,
     columnId,
     cardId=null,
+    boardMembers,
     handleClose,
-    onAddCardTrigger
+    refreshColumn
 }:Params) => {
     const [title, setTitle] = useState(null as string | null);
     const [description, setDescription] = useState(null as string | null);
+    const [savedCardUsers, setSavedCardUsers] = useState([] as SimpleUserResponse[]);
+    const [draftCardUsers, setDraftCardUsers] = useState([] as SimpleUserResponse[]);
     const [startDate, setStartDate] = useState(null as Date | null);
     const [endDate, setEndDate] = useState(null as Date | null);
     const [concludedAt, setConcludedAt] = useState(null as Date | null);
 
+    const [showMembersToAdd, setShowMembersToAdd] = useState(false);
+    const [membersToAddList, setMembersToAddList] = useState([] as SimpleUserResponse[])
+
+    let showMembersToAddButtonText = showMembersToAdd ? "Voltar" : "Adicionar usuário";
+
     useEffect(() => {
-        console.log("oie")
         if (cardId !== null) {
             findCardDetails(boardId, columnId, cardId)
                 .then(response => {
@@ -47,9 +61,17 @@ export const UpsertCardModal = ({
 
                     setTitle(response.title)
                     setDescription(response.description)
+                    setSavedCardUsers(response.users)
+                    setDraftCardUsers(response.users)
                     setStartDate(startDateValue)
                     setEndDate(endDateValue)
                     setConcludedAt(concludedDateValue)
+
+                    setMembersToAddList(
+                        boardMembers.filter(member =>
+                            response.users.find(user => user.userId === member.userId) === undefined
+                        )
+                    )
                 })
         } else {
             setTitle(null)
@@ -58,9 +80,9 @@ export const UpsertCardModal = ({
             setEndDate(null)
             setConcludedAt(null)
         }
-    }, [cardId])
+    }, [cardId]);
 
-    const saveCard = async () => {
+    const saveCard = async () =>  {
         if (title === null) return Promise.reject({successful: false});
 
         const startDateValue = (startDate !== null) ? startDate.toISOString() : null;
@@ -78,7 +100,26 @@ export const UpsertCardModal = ({
                     endDate: endDateValue,
                     concludedAt: concludedDateValue
                 }
-            );
+            ).then(response => {
+                const usersToAdd = draftCardUsers.filter(draftUser =>
+                    savedCardUsers.find(user => user.userId === draftUser.userId) === undefined
+                )
+                const usersToRemove = savedCardUsers.filter(user =>
+                    draftCardUsers.find(draftUser => draftUser.userId === user.userId) === undefined
+                )
+
+                updateCardParticipants(
+                    boardId,
+                    columnId,
+                    response.id,
+                    {
+                        addParticipants: usersToAdd.map(it => it.userId),
+                        removeParticipants: usersToRemove.map(it => it.userId)
+                    }
+                ).finally(() => {
+                    refreshColumn()
+                })
+            })
         } else {
             return updateCard(
                 boardId,
@@ -92,9 +133,28 @@ export const UpsertCardModal = ({
                     concludedAt: concludedDateValue,
                     columnId: columnId
                 }
-            )
+            ).then(response => {
+                const usersToAdd = draftCardUsers.filter(draftUser =>
+                    savedCardUsers.find(user => user.userId === draftUser.userId) === undefined
+                )
+                const usersToRemove = savedCardUsers.filter(user =>
+                    draftCardUsers.find(draftUser => draftUser.userId === user.userId) === undefined
+                )
+
+                updateCardParticipants(
+                    boardId,
+                    columnId,
+                    response.id,
+                    {
+                        addParticipants: usersToAdd.map(it => it.userId),
+                        removeParticipants: usersToRemove.map(it => it.userId)
+                    }
+                ).finally(() => {
+                    refreshColumn()
+                })
+            })
         }
-    }
+    };
 
     const onSaveClick = async () => {
         if (title !== null) {
@@ -106,7 +166,7 @@ export const UpsertCardModal = ({
                     setStartDate(null);
                     setEndDate(null);
                     setConcludedAt(null);
-                    onAddCardTrigger();
+                    refreshColumn();
                 })
                 .catch(response =>
                     console.error("Could not save card")
@@ -114,7 +174,33 @@ export const UpsertCardModal = ({
         } else {
             console.log("Title could not be null")
         }
-    }
+    };
+
+    const addUser = (userId: string) => {
+        if (draftCardUsers.find(draftUser => draftUser.userId === userId) === undefined) {
+            const user = boardMembers.find(member => member.userId === userId);
+            if (user !== undefined) {
+                setDraftCardUsers([...draftCardUsers, user]);
+                setMembersToAddList(membersToAddList.filter(member => member.userId !== userId));
+            }
+        }
+    };
+
+    const removeUser = (userId: string) => {
+        if (draftCardUsers.find(draftUser => draftUser.userId === userId) !== undefined) {
+            setDraftCardUsers(draftCardUsers.filter(user => user.userId !== userId));
+
+            const user = boardMembers.find(member => member.userId === userId);
+            if (user !== undefined) {
+                setMembersToAddList([...membersToAddList, user]);
+            }
+        }
+    };
+
+    const handleAddUserButtonClick = () => {
+        console.log("oi")
+        setShowMembersToAdd(!showMembersToAdd);
+    };
 
     return(
         <Container>
@@ -134,6 +220,8 @@ export const UpsertCardModal = ({
                             value={description !== null ? description : ""}
                             onChange={e => setDescription(e.target.value)}
                         />
+
+                        <Button onClick={onSaveClick}>Salvar</Button>
                     </MainArea>
 
                     <SideArea>
@@ -169,10 +257,37 @@ export const UpsertCardModal = ({
                             value={concludedAt != null ? dateTimeToBrazilianDateTimeString(concludedAt) : ""}
                             showTimeSelect
                         />
+
+                        <p>Participantes:</p>
+                        <UsersPainel>
+                            {showMembersToAdd
+                                ? <UserDetails>
+                                    {membersToAddList.map(member =>
+                                        <AddUserLabel
+                                            key={member.userId}
+                                            userId={member.userId}
+                                            userName={member.userName}
+                                            photoUrl={member.photoUrl}
+                                            addUser={addUser}
+                                        />
+                                    )}
+                                </UserDetails>
+                                : <UserDetails>
+                                    {draftCardUsers.map(user =>
+                                        <UserLabelWithRemove
+                                            key={user.userId}
+                                            userId={user.userId}
+                                            userName={user.userName}
+                                            photoUrl={user.photoUrl}
+                                            removeUser={removeUser}
+                                        />
+                                    )}
+                                </UserDetails>
+                            }
+                            <AddUserButton onClick={handleAddUserButtonClick}>{showMembersToAddButtonText}</AddUserButton>
+                        </UsersPainel>
                     </SideArea>
                 </PainelContent>
-
-                <Button onClick={onSaveClick}>Salvar</Button>
             </Painel>
         </Container>
     );

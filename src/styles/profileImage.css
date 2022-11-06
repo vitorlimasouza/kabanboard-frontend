@@ -1,0 +1,15 @@
+.color-white {
+    color: white;
+}
+
+.color-black {
+    color: black;
+}
+
+.border-2-solid-white {
+    border: 2px solid white;
+}
+
+.border-2-solid-black {
+    border: 2px solid black;
+}

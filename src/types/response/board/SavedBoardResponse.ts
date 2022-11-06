@@ -1,4 +1,4 @@
-import { SimpleUserResponse } from "../user/SimpleUserResponse";
+import { SimpleUserResponse, simpleUserResponseFromData } from "../user/SimpleUserResponse";
 import { SavedBoardColumnResponse } from "./SavedBoardColumnResponse";
 
 export interface SavedBoardResponse {
@@ -12,7 +12,7 @@ export interface SavedBoardResponse {
 export function savedBoardResponseFromData(data: any): SavedBoardResponse {
     return {
         id: data.id,
-        name: data.data,
+        name: data.name,
         createdAt: data.created_at,
         columns: (data.columns as Array<any>).map(column => ({
             id: column.id,
@@ -20,10 +20,8 @@ export function savedBoardResponseFromData(data: any): SavedBoardResponse {
             position: column.position,
             createdAt: column.created_at
         })),
-        members: (data.members as Array<any>).map(member => ({
-            id: member.id,
-            userName: member.user_name,
-            photoUrl: member.photo_url
-        }))
+        members: (data.members as Array<any>).map(member =>
+            simpleUserResponseFromData(member)
+        )
     }
 }
