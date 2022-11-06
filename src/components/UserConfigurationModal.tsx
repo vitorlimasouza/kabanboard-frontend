@@ -1,7 +1,7 @@
 import { Button, Field, Painel } from "../styles/userConfigurationModal";
 import { useEffect, useState } from "react";
 import { getMe, updateUser } from "../services/userService";
-import { removeBearerToken, removeLoginEmail, removeLoginPassword } from "../services/auth";
+import { removeBearerToken } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import "../styles/global.css"
 
@@ -78,8 +78,6 @@ export const UserConfigurationModal = ({show, refreshMembers}: Params) => {
 
     const handleOnExitButton = () => {
         removeBearerToken();
-        removeLoginEmail();
-        removeLoginPassword();
         navigate("/")
     }
 

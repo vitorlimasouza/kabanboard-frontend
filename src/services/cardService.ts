@@ -22,6 +22,7 @@ export async function createCard(
         body: {
             title: addCardRequest.title,
             description: addCardRequest.description,
+            priority: addCardRequest.priority,
             start_date: addCardRequest.startDate,
             end_date: addCardRequest.endDate,
             concluded_at: addCardRequest.concludedAt
@@ -51,6 +52,7 @@ export async function updateCard(
         body: {
             title: updateCardRequest.title,
             description: updateCardRequest.description,
+            priority: updateCardRequest.priority,
             start_date: updateCardRequest.startDate,
             end_date: updateCardRequest.endDate,
             concluded_at: updateCardRequest.concludedAt,

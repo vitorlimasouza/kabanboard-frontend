@@ -1,5 +1,5 @@
 import { KANBAN_BACKEND_API_ROOT_URL } from "../shared/rootUrls";
-import { getBearerToken, getLoginEmail, getLoginPassword, isAuthenticated } from "./auth";
+import { getBearerToken, isAuthenticated } from "./auth";
 import { login } from "./userService";
 
 export async function publicApiCall({method = 'GET', url, headers = {}, body = null}: {
@@ -32,18 +32,6 @@ export async function privateApiCall({method = 'GET', url, headers = {}, body = 
     headers?: any,
     body?: any | null
 }): Promise<Response> {
-    if (!isAuthenticated()) {
-        const loginEmail = getLoginEmail()
-        const loginPassword = getLoginPassword()
-
-        if (loginEmail !== null && loginPassword !== null) {
-            login({
-                email: loginEmail,
-                password: loginPassword
-            })
-        }
-    }
-
     const requestOptions = {
         method: method,
         headers: {

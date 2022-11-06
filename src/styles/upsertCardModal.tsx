@@ -60,6 +60,16 @@ export const SideArea = styled.div`
     padding: 5px;
 `
 
+export const ThinCenteredInput = styled.input`
+    width: 100%;
+    margin: 0 0 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px 5px;
+    color: black;
+    text-align: center;
+`
+
 export const CardNameInput = styled.input`
     width: 100%;
     padding: 5px 10px;
