@@ -10,7 +10,8 @@ import {
     PainelContent,
     UsersPainel,
     UserDetails,
-    AddUserButton
+    AddUserButton,
+    ThinCenteredInput
 } from "../styles/upsertCardModal";
 import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
 import { useEffect, useState } from "react";
@@ -40,6 +41,7 @@ export const UpsertCardModal = ({
 }:Params) => {
     const [title, setTitle] = useState(null as string | null);
     const [description, setDescription] = useState(null as string | null);
+    const [priority, setPriority] = useState(0);
     const [savedCardUsers, setSavedCardUsers] = useState([] as SimpleUserResponse[]);
     const [draftCardUsers, setDraftCardUsers] = useState([] as SimpleUserResponse[]);
     const [startDate, setStartDate] = useState(null as Date | null);
@@ -61,6 +63,7 @@ export const UpsertCardModal = ({
 
                     setTitle(response.title)
                     setDescription(response.description)
+                    setPriority(response.priority)
                     setSavedCardUsers(response.users)
                     setDraftCardUsers(response.users)
                     setStartDate(startDateValue)
@@ -96,6 +99,7 @@ export const UpsertCardModal = ({
                 {
                     title: title,
                     description: description,
+                    priority: priority,
                     startDate: startDateValue,
                     endDate: endDateValue,
                     concludedAt: concludedDateValue
@@ -128,6 +132,7 @@ export const UpsertCardModal = ({
                 {
                     title: title,
                     description: description,
+                    priority: priority,
                     startDate: startDateValue,
                     endDate: endDateValue,
                     concludedAt: concludedDateValue,
@@ -225,6 +230,13 @@ export const UpsertCardModal = ({
                     </MainArea>
 
                     <SideArea>
+                        <p>Prioridade:</p>
+                        <ThinCenteredInput
+                            type="number"
+                            value={priority}
+                            onChange={e => setPriority(+e.target.value)}
+                        />
+
                         <p>Data inicial:</p>
                         <DatePicker
                             className="datepicker-field"
