@@ -1,5 +1,7 @@
-import { Container } from "../styles/card";
+import { Container, UsersList } from "../styles/card";
 import { useDrag } from "react-dnd";
+import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
+import { ProfileIcon } from "./ProfileIcon";
 
 export interface DragItem {
     type: string
@@ -12,10 +14,8 @@ export interface DragItem {
 type Params = {
     cardId: string,
     columnId: string,
-    boardId: string,
     title: string,
-    userName: string
-    profileIconUrl: string,
+    users: SimpleUserResponse[],
     columnRefreshCards: () => void,
     openUpsertCardModal: (cardId: string | null) => void,
     index: number
@@ -23,10 +23,8 @@ type Params = {
 export const Card = ({
     cardId,
     columnId,
-    boardId,
     title,
-    userName,
-    profileIconUrl,
+    users,
     columnRefreshCards,
     openUpsertCardModal,
     index
@@ -49,10 +47,12 @@ export const Card = ({
 
     return(
         <Container ref={dragRef} isDragging={isDragging} onClick={() => openUpsertCardModal(cardId)}>
-            <header>
-               <p>{title}</p>
-            </header>
-            <img src ={profileIconUrl} alt={userName}/>
+           <p>{title}</p>
+            <UsersList>
+                {users.map(user =>
+                    <ProfileIcon key={user.userId} userName={user.userName} photoUrl={user.photoUrl} color="black"/>
+                )}
+            </UsersList>
         </Container>
     );
 

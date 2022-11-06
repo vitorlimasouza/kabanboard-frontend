@@ -1,4 +1,4 @@
-import { Header } from "../styles"
+import { Header } from "../components/Header";
 import { Button, GridDysplay } from "../styles/dashboard";
 import { useEffect, useState } from "react";
 import { CreateBoardModal } from "../components/CreateBoardModal";
@@ -23,11 +23,16 @@ export const Dashboard = () => {
             .then(response => {
                 setBoards([...boards, ...response.content])
                 setShowLoadMoreButton(!response.last)
-                console.log("Successful on fetch boards")
             })
-            .catch(response =>
-                console.log("Fail on fetch boards")
-            )
+    }
+
+    const refreshBoards = () => {
+        setBoardsPage(0);
+        findBoards(0)
+            .then(response => {
+                setBoards(response.content)
+                setShowLoadMoreButton(!response.last)
+            })
     }
 
     const handleOnClickNewBoard = () => {
@@ -52,7 +57,11 @@ export const Dashboard = () => {
 
             {showLoadMoreButton ? <Button onClick={fetchNextBoardsPage}>Carregar mais</Button> : null}
 
-            <CreateBoardModal show={showCreateBoardModal} handleClose={handleCloseCreateBoardModal}/>
+            <CreateBoardModal
+                show={showCreateBoardModal}
+                handleClose={handleCloseCreateBoardModal}
+                onCreateBoardTrigger={refreshBoards}
+            />
         </>
     )
 } 
