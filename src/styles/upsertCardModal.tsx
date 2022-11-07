@@ -14,48 +14,63 @@ export const Painel = styled.div`
     position: fixed;
     background: #fff;
     border: 1px solid black;
-    width: 1000px;
+    width: 50%;
     height: 500px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 5px 5px 5px;
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
+    border-radius: 5px;
 `
 
 export const PainelContent = styled.div`
     display: flex;
-    height: 100%
+    flex-direction: column;
+    height: 100%;
+    p{
+        font-size: 14px;
+        color: #636262;
+        font-weight: bold
+    }
 `
 
 export const CloseButton = styled.button`
-    padding: 5px;
+    padding: 7px 5px 5px 5px;
     width: fit-content;
-    background-color: white;
+    background-color: #fff;
     cursor: pointer;
     color:#d22;
     font-size: 20px;
-    align-self: end;
     opacity: 0.6;
     transition: 0.3s;
+    margin: 0 5px;
     &:hover ${this} {
         opacity: 1;
         transition: 0.2s;
     }
 `
 
-export const MainArea = styled.div`
+export const HeaderModal = styled.div`
     display: flex;
-    flex-direction: column;
-    width: 75%;
+    width: 100%;
+    padding: 5px;
+`
+
+export const MainArea = styled.div`
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    width: 100%;
     height: 100%;
     padding: 5px;
 `
 
 export const SideArea = styled.div`
-    width: 25%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     height: 100%;
     padding: 5px;
 `
@@ -73,27 +88,35 @@ export const ThinCenteredInput = styled.input`
 export const CardNameInput = styled.input`
     width: 100%;
     padding: 5px 10px;
-    border: 1px solid black;
-    border-radius: 5px;
     margin-bottom: 10px;
     font-size: 20px;
     &&::placeholder{
-        color: rpg(0,0,0,0.2);
+        color: rpg(0,0,0,0.1);
     }
+    &&:focus {
+        border: 1px solid #324659;;
+        outline: 1;
+        border-radius: 5px;
+    } 
 `
 
 export const CardDescriptionInput = styled.textarea`
-    width: 100%;
-    flex-grow: 1;
     padding: 5px 10px;
-    border: 1px solid black;
     border-radius: 5px;
-    margin-bottom: 10px;
     font-size: 16px;
+    margin: 10px 20px;
     resize: none;
+    height: 100%;
+    background: #e2e2e2;
     &&::placeholder{
         color: rpg(0,0,0,0.2);
     }
+    &&:focus {
+        background: #fff;
+        border: 1px solid #324659;;
+        outline: 1;
+        border-radius: 5px;
+    } 
 `
 
 export const UserDetails = styled.div`
@@ -127,11 +150,10 @@ export const UserName = styled.p`
 
 export const AddUserButton = styled.button`
     padding: 5px 20px;
-    width: 100%;
-    margin-top: 10px;
-    background-color: blue;
+    background-color: #C0D0DF;
     cursor: pointer;
-    color:#fff;
-    border-radius: 10px;
-    font-size: 20px;
+    color:#4d4848dd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 10px 0;
 `

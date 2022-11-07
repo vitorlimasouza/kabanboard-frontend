@@ -11,7 +11,8 @@ import {
     UsersPainel,
     UserDetails,
     AddUserButton,
-    ThinCenteredInput
+    ThinCenteredInput,
+    HeaderModal
 } from "../styles/upsertCardModal";
 import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
 import { useEffect, useState } from "react";
@@ -22,6 +23,7 @@ import { UserLabelWithRemove } from "./UserLabelWithRemove";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/global.css";
+import { MdClose } from 'react-icons/md';
 
 type Params = {
     boardId: string,
@@ -51,7 +53,7 @@ export const UpsertCardModal = ({
     const [showMembersToAdd, setShowMembersToAdd] = useState(false);
     const [membersToAddList, setMembersToAddList] = useState([] as SimpleUserResponse[])
 
-    let showMembersToAddButtonText = showMembersToAdd ? "Voltar" : "Adicionar usuário";
+    let showMembersToAddButtonText = showMembersToAdd ? "Voltar" : "Responsavel";
 
     useEffect(() => {
         if (cardId !== null) {
@@ -210,95 +212,95 @@ export const UpsertCardModal = ({
     return(
         <Container>
             <Painel>
-                <CloseButton onClick={handleClose}>x</CloseButton>
 
                 <PainelContent>
-                    <MainArea>
-                        <p>Titulo:</p>
+                    <HeaderModal>
                         <CardNameInput
-                            value={title !== null ? title : ""}
-                            onChange={e => setTitle(e.target.value)}
+                                value={title !== null ? title : ""}
+                                onChange={e => setTitle(e.target.value)}
                         />
+                        <CloseButton onClick={handleClose}><MdClose/></CloseButton>
+                    </HeaderModal>
+                    <MainArea>
+                        <SideArea>
+                            <p>Descrição:</p>
+                            <CardDescriptionInput
+                                value={description !== null ? description : ""}
+                                onChange={e => setDescription(e.target.value)}
+                            />
+                        </SideArea>
+                        <SideArea>
+                            <p>Descrição</p>
+                            <UsersPainel>
+                                {showMembersToAdd
+                                    ? <UserDetails>
+                                        {membersToAddList.map(member =>
+                                            <AddUserLabel
+                                                key={member.userId}
+                                                userId={member.userId}
+                                                userName={member.userName}
+                                                photoUrl={member.photoUrl}
+                                                addUser={addUser}
+                                            />
+                                        )}
+                                    </UserDetails>
+                                    : <UserDetails>
+                                        {draftCardUsers.map(user =>
+                                            <UserLabelWithRemove
+                                                key={user.userId}
+                                                userId={user.userId}
+                                                userName={user.userName}
+                                                photoUrl={user.photoUrl}
+                                                removeUser={removeUser}
+                                            />
+                                        )}
+                                    </UserDetails>
+                                }
+                                <AddUserButton onClick={handleAddUserButtonClick}>{showMembersToAddButtonText}</AddUserButton>
+                            </UsersPainel>
 
-                        <p>Descrição:</p>
-                        <CardDescriptionInput
-                            value={description !== null ? description : ""}
-                            onChange={e => setDescription(e.target.value)}
-                        />
+                            <p>Prioridade:</p>
+                            <ThinCenteredInput
+                                type="number"
+                                value={priority}
+                                onChange={e => setPriority(+e.target.value)}
+                            />
 
-                        <Button onClick={onSaveClick}>Salvar</Button>
+                            <p>Data inicial:</p>
+                            <DatePicker
+                                className="datepicker-field"
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                value={startDate != null ? dateTimeToBrazilianDateTimeString(startDate) : ""}
+                                selectsStart
+                                startDate={startDate}
+                                endDate={endDate}
+                                showTimeSelect
+                            />
+
+                            <p>Data final:</p>
+                            <DatePicker
+                                className="datepicker-field"
+                                selected={endDate}
+                                onChange={(date) => setEndDate(date)}
+                                value={endDate != null ? dateTimeToBrazilianDateTimeString(endDate) : ""}
+                                selectsEnd
+                                startDate={startDate}
+                                endDate={endDate}
+                                showTimeSelect
+                            />
+
+                            <p>Data de conclusão:</p>
+                            <DatePicker
+                                className="datepicker-field"
+                                selected={concludedAt}
+                                onChange={(date) => setConcludedAt(date)}
+                                value={concludedAt != null ? dateTimeToBrazilianDateTimeString(concludedAt) : ""}
+                                showTimeSelect
+                            />
+                        </SideArea>
                     </MainArea>
-
-                    <SideArea>
-                        <p>Prioridade:</p>
-                        <ThinCenteredInput
-                            type="number"
-                            value={priority}
-                            onChange={e => setPriority(+e.target.value)}
-                        />
-
-                        <p>Data inicial:</p>
-                        <DatePicker
-                            className="datepicker-field"
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            value={startDate != null ? dateTimeToBrazilianDateTimeString(startDate) : ""}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            showTimeSelect
-                        />
-
-                        <p>Data final:</p>
-                        <DatePicker
-                            className="datepicker-field"
-                            selected={endDate}
-                            onChange={(date) => setEndDate(date)}
-                            value={endDate != null ? dateTimeToBrazilianDateTimeString(endDate) : ""}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            showTimeSelect
-                        />
-
-                        <p>Data de conclusão:</p>
-                        <DatePicker
-                            className="datepicker-field"
-                            selected={concludedAt}
-                            onChange={(date) => setConcludedAt(date)}
-                            value={concludedAt != null ? dateTimeToBrazilianDateTimeString(concludedAt) : ""}
-                            showTimeSelect
-                        />
-
-                        <p>Participantes:</p>
-                        <UsersPainel>
-                            {showMembersToAdd
-                                ? <UserDetails>
-                                    {membersToAddList.map(member =>
-                                        <AddUserLabel
-                                            key={member.userId}
-                                            userId={member.userId}
-                                            userName={member.userName}
-                                            photoUrl={member.photoUrl}
-                                            addUser={addUser}
-                                        />
-                                    )}
-                                </UserDetails>
-                                : <UserDetails>
-                                    {draftCardUsers.map(user =>
-                                        <UserLabelWithRemove
-                                            key={user.userId}
-                                            userId={user.userId}
-                                            userName={user.userName}
-                                            photoUrl={user.photoUrl}
-                                            removeUser={removeUser}
-                                        />
-                                    )}
-                                </UserDetails>
-                            }
-                            <AddUserButton onClick={handleAddUserButtonClick}>{showMembersToAddButtonText}</AddUserButton>
-                        </UsersPainel>
-                    </SideArea>
+                    <Button onClick={onSaveClick}>Salvar</Button>
                 </PainelContent>
             </Painel>
         </Container>

@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&family=Roboto:wght@100;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
     
     * {
         margin: 0;
@@ -17,7 +17,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body{
-        font: 14px 'Roboto', sans-serif;
+        font: 14px;
+        font-family: 'Montserrat', sans-serif;
         background: #fff;
         -webkit-font-smoothing: antialiased !important; 
     }
