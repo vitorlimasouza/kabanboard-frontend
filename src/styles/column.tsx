@@ -12,10 +12,10 @@ export const Container = styled.div`
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: 250px;
+    background: #C0D0DF;
     & + div {
         margin-left: 0.5em;
     }
-    background: #C0D0DF;
 
     header {
         height: 42px;

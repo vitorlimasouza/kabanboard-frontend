@@ -16,9 +16,9 @@ export const Input = styled.input`
 export const Button = styled.button`
     padding: 5px 20px;
     width: 200px;
-    background-color: blue;
+    background-color: #C0D0DF;
     cursor: pointer;
-    color:#fff;
+    color:#4d4848dd;
     border-radius: 10px;
     font-size: 20px;
 `
