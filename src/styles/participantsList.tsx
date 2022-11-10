@@ -4,7 +4,6 @@ export const Painel = styled.div`
     position: absolute;
     width: 300px;
     height: fit-content;
-    max-height: 300px;
     border: 1px solid black;
     padding: 10px;
     transform: translate(0, 5vh);
@@ -35,7 +34,7 @@ export const UserName = styled.p`
 `
 
 export const AddUserContainer = styled.div`
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 `
@@ -64,6 +63,18 @@ export const Button = styled.button`
     border-radius: 10px;
     font-size: 15px;
     background-color: blue;
+    color:#fff;
+    cursor: pointer;
+`
+
+export const LeaveButton = styled.button`
+    width: 100%;
+    height: 30px;
+    padding: 5px 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: indianred;
     color:#fff;
     cursor: pointer;
 `

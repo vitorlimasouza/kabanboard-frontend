@@ -14,12 +14,11 @@ export const Painel = styled.div`
     position: fixed;
     background: #fff;
     border: 1px solid black;
-    width: 50%;
+    width: 1000px;
     height: 500px;
     padding: 0px 5px 5px 5px;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -120,7 +119,7 @@ export const CardDescriptionInput = styled.textarea`
 `
 
 export const UserDetails = styled.div`
-    max-height: 230px;
+    max-height: 125px;
     overflow: auto;
     display: flex;
     flex-direction: column;

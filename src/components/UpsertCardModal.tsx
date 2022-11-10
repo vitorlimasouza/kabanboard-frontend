@@ -53,7 +53,7 @@ export const UpsertCardModal = ({
     const [showMembersToAdd, setShowMembersToAdd] = useState(false);
     const [membersToAddList, setMembersToAddList] = useState([] as SimpleUserResponse[])
 
-    let showMembersToAddButtonText = showMembersToAdd ? "Voltar" : "Responsavel";
+    let showMembersToAddButtonText = showMembersToAdd ? "Cancelar" : "Adicionar";
 
     useEffect(() => {
         if (cardId !== null) {
@@ -205,7 +205,6 @@ export const UpsertCardModal = ({
     };
 
     const handleAddUserButtonClick = () => {
-        console.log("oi")
         setShowMembersToAdd(!showMembersToAdd);
     };
 
@@ -230,7 +229,7 @@ export const UpsertCardModal = ({
                             />
                         </SideArea>
                         <SideArea>
-                            <p>Descrição</p>
+                            <p>Participantes</p>
                             <UsersPainel>
                                 {showMembersToAdd
                                     ? <UserDetails>

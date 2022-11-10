@@ -2,6 +2,7 @@ import {
     AddUserContainer,
     Button,
     Field,
+    LeaveButton,
     Painel,
     ParticipantsDetails,
     UserLabel,
@@ -9,8 +10,9 @@ import {
 } from "../styles/participantsList";
 import { SimpleUserResponse } from "../types/response/user/SimpleUserResponse";
 import { ProfileIcon } from "./ProfileIcon";
-import { addMenberToBoard } from "../services/boardService";
+import {addMenberToBoard, leaveBoard} from "../services/boardService";
 import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 type Params = {
     show: boolean,
@@ -19,13 +21,14 @@ type Params = {
     refreshMembers: () => void
 }
 export const ParticipantsList = ({boardId, show, members, refreshMembers}:Params) => {
+    let navigate = useNavigate()
+
     const [email, setEmail] = useState("");
     const [membersList, setMembersList] = useState(members)
 
     const showHideClassName = show ? "display-block" : "display-none";
 
     useEffect(() => {
-        console.log(members)
         setMembersList(members)
     }, [members])
 
@@ -36,6 +39,13 @@ export const ParticipantsList = ({boardId, show, members, refreshMembers}:Params
                 setEmail("")
             })
     };
+
+    const handleOnLeaveButtonClick = () => {
+        leaveBoard(boardId)
+            .then(response =>
+                navigate("/dashboard")
+            )
+    }
 
     return (
         <Painel className={showHideClassName}>
@@ -54,6 +64,7 @@ export const ParticipantsList = ({boardId, show, members, refreshMembers}:Params
                 <Field value={email} onChange={e => setEmail(e.target.value)}/>
                 <Button onClick={handleOnAddUserButtonClick}>+</Button>
             </AddUserContainer>
+            <LeaveButton onClick={handleOnLeaveButtonClick}>Leave Board</LeaveButton>
         </Painel>
     );
 }

@@ -79,6 +79,21 @@ export async function removeMenberToBoard(
     }
 }
 
+export async function leaveBoard(
+    boardId: string
+): Promise<any> {
+    const response = await privateApiCall({
+        method: 'DELETE',
+        url: `/api/v1/board/${boardId}/leave`
+    })
+
+    if (response.ok) {
+        return Promise.resolve({successful: true})
+    } else {
+        return Promise.reject({successful: false})
+    }
+}
+
 export async function findBoard(
     boardId: string
 ): Promise<SavedBoardResponse> {
