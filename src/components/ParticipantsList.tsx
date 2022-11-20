@@ -64,7 +64,7 @@ export const ParticipantsList = ({boardId, show, members, refreshMembers}:Params
                 <Field value={email} onChange={e => setEmail(e.target.value)}/>
                 <Button onClick={handleOnAddUserButtonClick}>+</Button>
             </AddUserContainer>
-            <LeaveButton onClick={handleOnLeaveButtonClick}>Leave Board</LeaveButton>
+            <LeaveButton onClick={handleOnLeaveButtonClick}>Sair do quadro</LeaveButton>
         </Painel>
     );
 }
